@@ -21,12 +21,12 @@ namespace DatingApp.API.Controllers
         {
             _context = context;
         }
-        [HttpGet]
-        public IActionResult Report(User user) {
+        [HttpGet("{id}")]
+        public IActionResult Report(int id) {
             UserReport userReport = new UserReport();
-            var users = _context.Users.ToList();
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
        
-            byte[] abytes = userReport.PrepareReport(users);
+            byte[] abytes = userReport.PrepareReport(user);
             return File(abytes, "application/pdf");
         }
     }

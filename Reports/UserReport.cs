@@ -15,12 +15,12 @@ namespace DatingApp.API.Reports
         PdfPTable _pdfTable = new PdfPTable(6);
         PdfPCell _pdfCell;
         MemoryStream _memoryStream = new MemoryStream();
-        List<User> _users = new List<User>();
+        User _user = new User();
         #endregion
 
-        public byte[] PrepareReport(List<User> users)
+        public byte[] PrepareReport(User user)
         {
-            _users = users;
+            _user = user;
 
             #region 
             _document = new Document(PageSize.A4, 0f, 0f, 0f, 0f);
@@ -143,45 +143,44 @@ namespace DatingApp.API.Reports
 
             #region Table Body
              _fontStyle = FontFactory.GetFont("Tahoma", 8f, 1);
-             foreach(User user in _users)
-             {
-                _pdfCell = new PdfPCell(new Phrase(user.Id.ToString(), _fontStyle));
+            
+                _pdfCell = new PdfPCell(new Phrase(_user.Id.ToString(), _fontStyle));
                 _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
                 _pdfCell.VerticalAlignment = Element.ALIGN_MIDDLE;
                 _pdfCell.BackgroundColor = BaseColor.White;
                 _pdfTable.AddCell(_pdfCell);
 
-                _pdfCell = new PdfPCell(new Phrase(user.Username, _fontStyle));
+                _pdfCell = new PdfPCell(new Phrase(_user.Username, _fontStyle));
                 _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
                 _pdfCell.VerticalAlignment = Element.ALIGN_MIDDLE;
                 _pdfCell.BackgroundColor = BaseColor.White;
                 _pdfTable.AddCell(_pdfCell);
 
-                 _pdfCell = new PdfPCell(new Phrase(user.Username, _fontStyle));
+                 _pdfCell = new PdfPCell(new Phrase(_user.Username, _fontStyle));
                 _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
                 _pdfCell.VerticalAlignment = Element.ALIGN_MIDDLE;
                 _pdfCell.BackgroundColor = BaseColor.White;
                 _pdfTable.AddCell(_pdfCell);
 
-                 _pdfCell = new PdfPCell(new Phrase(user.Username, _fontStyle));
+                 _pdfCell = new PdfPCell(new Phrase(_user.Username, _fontStyle));
                 _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
                 _pdfCell.VerticalAlignment = Element.ALIGN_MIDDLE;
                 _pdfCell.BackgroundColor = BaseColor.White;
                 _pdfTable.AddCell(_pdfCell);
 
-                 _pdfCell = new PdfPCell(new Phrase(user.Username, _fontStyle));
+                 _pdfCell = new PdfPCell(new Phrase(_user.Username, _fontStyle));
                 _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
                 _pdfCell.VerticalAlignment = Element.ALIGN_MIDDLE;
                 _pdfCell.BackgroundColor = BaseColor.White;
                 _pdfTable.AddCell(_pdfCell);
 
-                 _pdfCell = new PdfPCell(new Phrase(user.Username, _fontStyle));
+                 _pdfCell = new PdfPCell(new Phrase(_user.Username, _fontStyle));
                 _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
                 _pdfCell.VerticalAlignment = Element.ALIGN_MIDDLE;
                 _pdfCell.BackgroundColor = BaseColor.White;
                 _pdfTable.AddCell(_pdfCell);
                 _pdfTable.CompleteRow();
-             }
+             
             #endregion
         }
         
