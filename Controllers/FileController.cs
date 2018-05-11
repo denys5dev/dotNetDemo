@@ -7,34 +7,27 @@ using iTextSharp.text.pdf;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using DatingApp.API.Reports;
+using System.Linq;
 
-namespace DatingApp.API.Controllers
+namespace DatingApp.API.Controllers 
 {
+
     [Route("api/[controller]")]
-    public class FileController : Controller
+    public class FileController: Controller 
     {
+        private readonly DataContext _context;
+
+        public FileController(DataContext context)
+        {
+            _context = context;
+        }
         [HttpGet]
-       public IActionResult Report(User user)
-       {
-           UserReport userReport = new UserReport();
-           byte[] abytes = userReport.PrepareReport(GetUsers());
-           return File(abytes, "application/pdf");
-       }
-
-       public List<User> GetUsers()
-       {
-           List<User> users = new List<User>();
-           User user = new User();
-
-           for(int i = 1; i <= 6; i++)
-           {
-               user = new User();
-               user.Username = "User" + i;
-               users.Add(user);
-           }
-
-
-           return users;
-       }
+        public IActionResult Report(User user) {
+            UserReport userReport = new UserReport();
+            var users = _context.Users.ToList();
+       
+            byte[] abytes = userReport.PrepareReport(users);
+            return File(abytes, "application/pdf");
+        }
     }
 }
